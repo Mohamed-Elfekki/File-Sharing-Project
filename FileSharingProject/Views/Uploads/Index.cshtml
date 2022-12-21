@@ -1,0 +1,78 @@
+﻿@model IEnumerable<FileSharingProject.Models.UploadViewModel>
+
+@{
+    ViewData["Title"] = "Index";
+    var imagesContentType = new[] { "image/jpeg", "image/png", "image/jpg" };
+}
+
+<h1>My Uploads</h1>
+
+<p style="text-align:right">
+    <a asp-action="Create" class="btn btn-success">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Preview</th>
+            <th>
+                @Html.DisplayNameFor(model => model.FileName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Size)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ContentType)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.UploadDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DownloadCount)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                    @if (item.ContentType.ToLower().StartsWith("image/"))
+                    {
+                        <img src="/Uploads/@item.FileName" alt="Alternate Text" width="100" height="100" class="img-thumbnail" />
+                    }
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.OriginalFileName)
+            </td>
+            <td>
+                @*@Html.DisplayFor(modelItem => item.Size)*@
+                    @{
+                        var size = item.Size / 1024; //KB
+                        if (size < 1024)
+                        {
+                            <span>Size: @Math.Floor(size) KB</span>
+                        }
+                        else
+                        {
+                            size = size / 1024; //MB
+                            <span>Size: @Math.Floor(size) MB</span>
+                        }
+                      }
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ContentType)
+            </td>
+             <td>
+                    @Html.DisplayFor(modelItem => item.UploadDate)
+             </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DownloadCount)
+                </td>
+
+            <td>
+                @Html.ActionLink("Delete", "Delete", new { id=item.Id})
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

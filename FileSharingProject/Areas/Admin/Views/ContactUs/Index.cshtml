@@ -1,0 +1,73 @@
+﻿@model List<FileSharingProject.Areas.Admin.Models.ContactUsViewModel>
+@{
+    ViewData["Title"] = "Index";
+}
+
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header">
+                <h3 class="card-title">Responsive Hover Table</h3>
+
+                <div class="card-tools">
+                    <div class="input-group input-group-sm" style="width: 150px;">
+                        <input type="text" name="table_search" class="form-control float-right" placeholder="Search">
+
+                        <div class="input-group-append">
+                            <button type="submit" class="btn btn-default">
+                                <i class="fas fa-search"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- /.card-header -->
+            <div class="card-body table-responsive p-0">
+                <table class="table table-hover text-nowrap">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Email</th>
+                            <th>Date</th>
+                            <th>status</th>
+                            <th>Details</th>
+                            <th>Show Details</th>
+                            <th>Change Status</th>
+
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                       {
+                            <tr>
+                                <td>@item.Name</td>
+                                <td>@item.Email</td>
+                                <td><span class="moment-date">@item.SentDate.ToString("yyyy-MM-dd hh:mm:ss", new System.Globalization.CultureInfo("en-US"))</span></td>
+                                <td><span class="tag @(item.IsClosed?"tag-success":"tag-danger")">@(item.IsClosed? "Closed" :"Opened")</span></td>
+                                <td>@item.Subject</td>
+                                <td>
+                                    <a asp-action="Details" asp-controller="ContactUs" asp-area="Admin" asp-route-id="@item.Id">Details</a>
+                                </td>
+                                <td>
+                                    <form asp-action="ChangeStatus" id="Status-Form-@item.Id">
+                                        <input type="hidden" name="Id" value="@item.Id" />
+                                        <select onchange="document.getElementById('Status-Form-@item.Id').submit()" name="IsClosed" class="form-control">
+                                            <option value="">Select Status</option>
+                                            <option value="false">Open</option>
+                                            <option value="true">Closed</option>
+                                            <option></option>
+                                        </select>
+                                    </form>
+
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+            <!-- /.card-body -->
+        </div>
+        <!-- /.card -->
+    </div>
+</div>
+

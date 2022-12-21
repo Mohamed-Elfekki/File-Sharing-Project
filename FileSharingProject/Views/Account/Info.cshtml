@@ -1,0 +1,82 @@
+﻿@model FileSharingProject.Models.UserViewModel
+@{
+    ViewData["Title"] = "Info";
+}
+
+
+
+
+
+@if (! ViewContext.ModelState.IsValid)
+{
+    <div asp-validation-summary="ModelOnly" class="text-danger alert alert-danger"></div>
+
+}
+
+<section id="mu-contact">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="mu-contact-area" style="padding-top:0px">
+                    <!-- Title -->
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="mu-title">
+                                <h2>LOGGED IN USER</h2>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Start Contact Content -->
+                    <div class="mu-contact-content">
+                        <div class="row">
+
+                            <div class="col-md-12">
+                                <div class="mu-contact-form-area">
+                                    <div id="form-messages"></div>
+                                    <form id="contact" method="post" class="mu-contact-form" asp-action="Info" asp-controller="Account">
+                                        <div class="form-group">
+                                            <span class="fa fa-user mu-contact-icon"></span>
+                                            <input asp-for="FirstName" type="text" class="form-control" placeholder="First Name" id="name" required>
+                                            <span asp-validation-for="FirstName"></span>
+                                        </div>
+                                        <div class="form-group">
+                                            <span class="fa fa-user mu-contact-icon"></span>
+                                            <input asp-for="LastName" type="text" class="form-control" placeholder="LastName" id="name" required>
+                                            <span asp-validation-for="LastName"></span>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <span class="fa fa-user mu-contact-icon"></span>
+                                            <input asp-for="Email" type="email" class="form-control" placeholder="Enter Your Email" id="name" required readonly>
+                                            <span asp-validation-for="Email"></span>
+                                        </div>
+
+                                        <button type="submit" class="mu-send-msg-btn"><span>Submit</span></button>
+                                    </form>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                    <!-- End Contact Content -->
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+@if (Model.HasPassword)
+{
+    await Html.RenderPartialAsync("_ChangePasswordPartial", new ChangePasswordViewModel());
+}
+else
+{
+    await Html.RenderPartialAsync("_AddPasswordPartial", new AddPasswordViewModel());
+}
+
+
+@section Scripts
+  {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+  }

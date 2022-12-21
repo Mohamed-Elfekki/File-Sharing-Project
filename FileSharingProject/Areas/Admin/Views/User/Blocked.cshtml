@@ -1,0 +1,24 @@
+﻿@model List<FileSharingProject.Areas.Admin.Models.AdminUserViewModel>
+@{
+    ViewData["Title"] = "Blocked User List";
+}
+
+
+    <!-- Main content -->
+    <section class="content">
+
+        <!-- Default box -->
+        <div class="card card-solid">
+            <div class="card-body pb-0">
+                <div class="row">
+
+                    @foreach(var item in Model)
+                    {
+                        <partial name="_UserCard" model="item" />
+                    }
+                </div>
+            </div>
+        </div>
+        <!-- /.card -->
+    </section>
+    <!-- /.content -->

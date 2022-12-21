@@ -1,0 +1,54 @@
+﻿@model IEnumerable<FileSharingProject.Models.UploadViewModel>
+
+@{
+    ViewData["Title"] = "Results";
+}
+<h4>Search Results</h4>
+<hr />
+<div class="container">
+    <div class="row">
+        @foreach (var item in Model)
+        {
+            <div class="card mb-3 col-md-8">
+                <div class="row g-0">
+                    <div class="col-md-4">
+                        @if (item.ContentType.ToLower().StartsWith("image"))
+                        {
+                            <img src="/Uploads/@item.FileName" class="img-fluid rounded-start" alt="..." style="min-height:145px; min-width:200px; max-height:145px; max-width:200px;">
+
+                        }
+                    </div>
+                    <div class="col-md-8">
+                        <div class="card-body">
+                            <h5 class="card-title">@item.OriginalFileName</h5>
+                            @*<p class="card-text"></p>*@
+                            <p class="card-text"><small class="text-muted">@item.UploadDate</small></p>
+                            <p class="card-text">Download count: @item.DownloadCount</p>
+                            <div class="text-right">
+
+
+                                <a asp-action="Download" asp-controller="Uploads" asp-route-id="@item.Id" class="btn btn-success">Download</a>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+
+        <div class="col-12 text-center">
+            <div>
+                @if (ViewBag.CurrentPage - 1 > 0)
+                {
+                    <a href="/Uploads/Browse/?RequiredPage=@(ViewBag.CurrentPage - 1)" class="btn btn-outline-primary btn-lg align-left">Prev</a>
+                }
+                @if (ViewBag.CurrentPage + 1 <= ViewBag.PagesCount)
+                {
+                    <a href="/Uploads/Browse/?RequiredPage=@(ViewBag.CurrentPage + 1)" class="btn btn-outline-primary btn-lg align-right">Next</a>
+                }
+            </div>
+        </div>
+
+
+    </div>
+</div>

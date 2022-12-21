@@ -1,0 +1,82 @@
+﻿@model FileSharingProject.Models.LoginViewModel
+
+@{
+    ViewData["Title"] = "Login";
+}
+
+<h5>
+
+    123ABCsf@@#$5 ->mohamed@gmail.com <br />
+
+    1234FDoAW!@@ ->ali@gmail.com
+</h5>
+
+
+<section id="mu-contact">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="mu-contact-area" style="padding-top:0px">
+                    <!-- Title -->
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="mu-title">
+                                <h2>Login</h2>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Start Contact Content -->
+                    <div class="mu-contact-content">
+                        <div class="row">
+
+                            <div class="col-md-12">
+                                <div class="mu-contact-form-area">
+                                    <div id="form-messages"></div>
+                                    <form id="contact" method="post" class="mu-contact-form" asp-action="Login" asp-controller="Account" asp-route-ReturnUrl="@Context.Request.Query["ReturnUrl"]">
+                                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                                        <div class="form-group">
+                                            <span class="fa fa-user mu-contact-icon"></span>
+                                            <input asp-for="Email" type="email" class="form-control" placeholder="Enter Your Email" id="name" required>
+                                            <span asp-validation-for="Email" class="field-validation-error"></span>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <span class="fa fa-envelope mu-contact-icon"></span>
+                                            <input asp-for="Password" type="password" class="form-control" placeholder="Enter Password" id="email" required>
+                                            <span asp-validation-for="Password" class="field-validation-error"></span>
+                                        </div>
+
+
+                                        <button type="submit" class="mu-send-msg-btn"><span>Login</span></button>
+                                    </form>
+                                </div>
+                            </div>
+
+                            <div class="row"  style="padding-top:20px; padding-left:70px">
+                                <div class="col-6">
+                                    <a class="btn btn-outline-primary" asp-action="ExternalLogin" asp-route-provider="Facebook" asp-controller="Account">Login with Facebook</a>
+                                </div>
+                                <div class="col-6">
+                                    <a class="btn btn-outline-danger" asp-action="ExternalLogin" asp-route-provider="Google" asp-controller="Account">Login with Google</a>
+
+                                </div>
+                            </div>
+                            <div class="col-md-12" style="padding-top:15px">
+                                <a asp-action="ForgotPassword" asp-controller="Account" class="btn btn-outline-dark">Forgot Password?</a>
+                            </div>
+
+                        </div>
+                    </div>
+                    <!-- End Contact Content -->
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+    }

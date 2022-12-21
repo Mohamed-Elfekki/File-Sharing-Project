@@ -1,0 +1,75 @@
+﻿@model IEnumerable<FileSharingProject.Models.UploadViewModel>
+@{
+    ViewData["Title"] = "Browse";
+}
+
+<h1>Browse Uploads</h1>
+<div class="container">
+    <div class="row">
+        @foreach (var item in Model)
+        {
+            <div class="card mb-3 col-md-12">
+                <div class="row g-0">
+                    <div class="col-md-4">
+                        @if (item.ContentType.ToLower().StartsWith("image"))
+                        {
+                            <img src="/Uploads/@item.FileName" class="img-fluid rounded-start" alt="..." style="min-height:145px; min-width:200px; max-height:145px; max-width:200px;">
+
+                        }
+                    </div>
+                    <div class="col-md-8">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-6">
+                                    <h5 class="card-title">@item.OriginalFileName</h5>
+                                </div>
+
+                                <div class="col-2">
+                                    <p class="card-text">
+                                        <small class="text-muted">@item.UploadDate</small>
+                                        <br />
+                                        @{
+                                            var size = item.Size / 1024; //KB
+                                            if (size < 1024)
+                                            {
+                                                <span>Size: @Math.Floor(size) KB</span>
+                                            }
+                                            else
+                                            {
+                                                size = size / 1024; //MB
+                                                <span>Size: @Math.Floor(size) MB</span>
+                                            }
+                                        }
+
+                                    </p>
+
+                                </div>
+                                <div>
+                                    <div>
+                                        Download Count: @item.DownloadCount
+                                    </div><br /><br />
+                                    <div> <a asp-action="Download" asp-controller="Uploads" asp-route-id="@item.Id" class="btn btn-primary">Download</a></div>
+                                </div>
+                            </div>
+
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+
+        <div class="col-12 text-center">
+            <div>
+                @if (ViewBag.CurrentPage - 1 > 0)
+                {
+                    <a href="/Uploads/Browse/?RequiredPage=@(ViewBag.CurrentPage - 1)" class="btn btn-outline-primary btn-lg align-left">Prev</a>
+                }
+                @if (ViewBag.CurrentPage + 1 <= ViewBag.PagesCount)
+                {
+                    <a href="/Uploads/Browse/?RequiredPage=@(ViewBag.CurrentPage + 1)" class="btn btn-outline-primary btn-lg align-right">Next</a>
+                }
+            </div>
+        </div>
+    </div>
+</div>

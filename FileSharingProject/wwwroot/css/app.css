@@ -1,0 +1,19 @@
+﻿body {
+}
+
+.main-content {
+    padding-top: 130px;
+    font-family: 'Segoe UI';
+    padding-bottom: 20px;
+    min-height: 500px;
+}
+
+
+    .main-content h1, .main-content h2 {
+        color: #0091ea;
+    }
+
+
+.field-validation-error {
+    color: red;
+}
