@@ -30,7 +30,7 @@
         <li>Upload photos</li>
         <li>Delete Photos</li>
         <li>Show User-uploaded Photos</li>
-        <li>search photos by name</li>
+        <li>Search photos by name</li>
         <li>Show Most Popular Downloads</li>
         <li>Count Number of Downloads</li>
         <li>Show Photo, name, Size and Date</li>
